@@ -2676,17 +2676,7 @@ function showPage(pageId) {
     msgBox.scrollTop = msgBox.scrollHeight;
   }
 
-  // Listen for messages
-  const evtSource = new EventSource(DB_URL + '/chat.json');
-  evtSource.onmessage = function(e) {
-    try {
-      const data = JSON.parse(e.data);
-      if (data && data.data !== null) renderMessages(data.data);
-      else if (data && data.path && data.data) loadMessages();
-    } catch(ex) { loadMessages(); }
-  };
-  evtSource.onerror = function() { loadMessages(); };
-
+  // Load and poll for messages every 5 seconds
   function loadMessages() {
     fetch(DB_URL + '/chat.json')
       .then(r => r.json())
@@ -2694,6 +2684,7 @@ function showPage(pageId) {
       .catch(() => { msgBox.innerHTML = '<div style="text-align:center;color:#aaa;padding:40px 0;">Could not load messages.</div>'; });
   }
   loadMessages();
+  setInterval(loadMessages, 5000);
 
   // Send message
   window.sendTrashTalk = function() {
