@@ -2625,14 +2625,11 @@ function showPage(pageId) {
   const sel = document.getElementById('ttName');
   PLAYERS.forEach(p => { const o = document.createElement('option'); o.value = p; o.textContent = p; sel.appendChild(o); });
 
-  // Sync with caddie picks selection (shared localStorage key)
-  const saved = localStorage.getItem('bandon_caddie_user');
+  // Restore name: use trash talk's own key first, fall back to caddie picks selection
+  const saved = localStorage.getItem('tt_name') || localStorage.getItem('bandon_caddie_user');
   if (saved) sel.value = saved;
   sel.addEventListener('change', () => {
-    localStorage.setItem('bandon_caddie_user', sel.value);
-    // Also sync caddie picks dropdown if it exists
-    const caddieWho = document.getElementById('caddieWho');
-    if (caddieWho) { caddieWho.value = sel.value; if (window.setCaddieUser) window.setCaddieUser(sel.value); }
+    localStorage.setItem('tt_name', sel.value);
   });
 
   const msgBox = document.getElementById('ttMessages');
