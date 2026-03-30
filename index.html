@@ -594,7 +594,8 @@
   <div class="page-nav-inner">
     <button class="page-nav-btn active" onclick="showPage('home')">Home</button>
     <button class="page-nav-btn" onclick="showPage('courses')">Courses</button>
-    <button class="page-nav-btn" onclick="showPage('caddies')">Caddie Picks <span style="background: var(--red); color: white; font-size: 0.6em; font-weight: 800; padding: 2px 5px; border-radius: 6px; letter-spacing: 0.5px; vertical-align: middle; margin-left: 4px;">NEW</span></button>
+    <button class="page-nav-btn" onclick="showPage('caddies')">Caddie Picks</button>
+    <button class="page-nav-btn" onclick="showPage('trashtalk')">Trash Talk <span style="background: var(--red); color: white; font-size: 0.6em; font-weight: 800; padding: 2px 5px; border-radius: 6px; letter-spacing: 0.5px; vertical-align: middle; margin-left: 4px;">NEW</span></button>
     <button class="page-nav-btn" onclick="showPage('tournament')">Tournament</button>
     <button class="page-nav-btn" onclick="showPage('payments')">Payments</button>
     <button class="page-nav-btn" onclick="showPage('packing')">Packing List</button>
@@ -1713,7 +1714,7 @@
             <th>Player</th>
             <th style="text-align:right">Golf (8 rds)<br><small style="font-weight:normal;opacity:0.7">Payee: Josh John</small></th>
             <th style="text-align:right">Lodging (4 nights)<br><small style="font-weight:normal;opacity:0.7">Payee: Josh John</small></th>
-            <th style="text-align:right">Shuttle<br><small style="font-weight:normal;opacity:0.7">Payee: John Armes</small></th>
+            <th style="text-align:right">Shuttle (OTH only)<br><small style="font-weight:normal;opacity:0.7">Payee: John Armes</small></th>
             <th style="text-align:right">Total Due</th>
             <th style="text-align:right">Paid In</th>
             <th style="text-align:right">Owes Josh John</th>
@@ -1757,7 +1758,7 @@
             </a>
           </div>
           <div style="text-align:center">
-            <p><strong>Owe John Armes?</strong><br>Shuttle payments:</p>
+            <p><strong>Owe John Armes?</strong><br>Shuttle payments (if flying into OTH):</p>
             <a href="https://venmo.com/johnarmes" target="_blank" class="venmo-btn">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M19.5 1.5c.9 1.5 1.3 3.1 1.3 5.1 0 6.3-5.4 14.5-9.8 20.3H3.3L0 2.1l7.2-.7 1.8 14.3c1.7-2.8 3.8-7.2 3.8-10.2 0-1.9-.3-3.2-.9-4.2L19.5 1.5z"/></svg>
               Pay @johnarmes
@@ -1782,181 +1783,65 @@
   </div>
 </div>
 
-<div class="grid-2">
-
-  <!-- GOLF GEAR -->
+<div class="full-width">
   <div class="card">
-    <div class="card-header green">Golf Gear</div>
-    <div class="card-body" style="font-size:0.88em; line-height:1.7;">
-      <label style="display:block;"><input type="checkbox"> <strong>Clubs</strong> — Leave 2–3 you rarely use at home. Bring clubs for bump-and-run; links golf rewards the ground game.</label>
-      <label style="display:block;"><input type="checkbox"> <strong>Golf balls</strong> — 1 to 1.5 dozen is plenty. Wide fairways + caddies = fewer lost balls. Pro shops sell more if needed.</label>
-      <label style="display:block;"><input type="checkbox"> Tees, divot tool, ball markers</label>
-      <label style="display:block;"><input type="checkbox"> Sharpie for marking balls</label>
-      <label style="display:block;"><input type="checkbox"> Rangefinder (optional — caddies handle yardage, but nice for confirmation)</label>
-      <label style="display:block;"><input type="checkbox"> <strong>Golf gloves</strong> — 3–4 regular gloves (rotate to let them dry between rounds)</label>
-      <label style="display:block;"><input type="checkbox"> <strong>Rain gloves</strong> — At least 1 pair (e.g., FootJoy RainGrip). Game-changer in wet/windy rounds.</label>
-      <label style="display:block;"><input type="checkbox"> 2 bag towels — keep one dry in a zip-lock bag</label>
-      <label style="display:block;"><input type="checkbox"> Snug-fitting headcovers (wind can blow them off)</label>
-      <label style="display:block;"><input type="checkbox"> Zip-lock bags for phone, wallet, scorecard</label>
-      <div style="margin-top:8px; padding:8px 12px; background:#e8f5e9; border-radius:6px; font-size:0.9em;">
-        <strong>Push cart users:</strong> Push carts are free at the resort — no need to bring your own.<br>
-        <strong>Caddie users:</strong> Carry bags are ideal for carry caddies. Stand bags work fine with forecaddies.
-      </div>
-    </div>
-  </div>
-
-  <!-- GOLF CLOTHING & LAYERS -->
-  <div class="card">
-    <div class="card-header green">Golf Clothing & Layers</div>
-    <div class="card-body" style="font-size:0.88em; line-height:1.7;">
-      <p style="font-weight:700; margin-bottom:6px; color:var(--green-dark);">Base Layer (next to skin)</p>
-      <label style="display:block;"><input type="checkbox"> 3–4 moisture-wicking polos or long-sleeve base layers (synthetic or merino — no cotton)</label>
-      <label style="display:block;"><input type="checkbox"> 2 pairs of golf pants (wind blocks better than shorts)</label>
-      <label style="display:block;"><input type="checkbox"> 1 pair of golf shorts (for that one sunny afternoon)</label>
-      <p style="font-weight:700; margin-bottom:6px; margin-top:10px; color:var(--green-dark);">Mid Layer</p>
-      <label style="display:block;"><input type="checkbox"> 1–2 quarter-zip pullovers or fleece</label>
-      <label style="display:block;"><input type="checkbox"> 1 wind vest — keeps core warm without restricting your swing</label>
-      <p style="font-weight:700; margin-bottom:6px; margin-top:10px; color:var(--green-dark);">Outer Shell</p>
-      <label style="display:block;"><input type="checkbox"> <strong>Waterproof/windproof jacket</strong> (Gore-Tex or similar) — loose enough to layer under and swing freely</label>
-      <label style="display:block;"><input type="checkbox"> <strong>Waterproof rain pants</strong> — Non-negotiable. Even without rain, wind alone justifies these.</label>
-    </div>
-  </div>
-
-  <!-- FOOTWEAR -->
-  <div class="card">
-    <div class="card-header green">Footwear</div>
-    <div class="card-body" style="font-size:0.88em; line-height:1.7;">
-      <label style="display:block;"><input type="checkbox"> <strong>2 pairs of golf shoes</strong> — Alternate pairs on 36-hole days so one can dry. Waterproof strongly recommended. Break them in before the trip!</label>
-      <label style="display:block;"><input type="checkbox"> <strong>5–6 pairs of moisture-wicking golf socks</strong> — Change socks between rounds on double days. This is the #1 tip from experienced Bandon visitors.</label>
-      <label style="display:block;"><input type="checkbox"> 1 pair of comfortable casual shoes (evenings, travel)</label>
-      <label style="display:block;"><input type="checkbox"> Sandals or slides (for the room and post-round)</label>
-    </div>
-  </div>
-
-  <!-- HEADWEAR & ACCESSORIES -->
-  <div class="card">
-    <div class="card-header green">Headwear & Accessories</div>
-    <div class="card-body" style="font-size:0.88em; line-height:1.7;">
-      <label style="display:block;"><input type="checkbox"> 2 baseball caps or visors (one will get soaked)</label>
-      <label style="display:block;"><input type="checkbox"> 1 beanie/wool hat — early May mornings can be in the 40s with wind</label>
-      <label style="display:block;"><input type="checkbox"> 1 wide-brim waterproof hat (bucket hat works well in sideways rain)</label>
-      <label style="display:block;"><input type="checkbox"> Sunscreen — SPF 30+. Coastal sun reflects off water; you'll burn even on overcast days.</label>
-      <label style="display:block;"><input type="checkbox"> Lip balm with SPF</label>
-      <label style="display:block;"><input type="checkbox"> Sunglasses — Polarized preferred for coastal glare. Bring a retainer strap for wind.</label>
-      <label style="display:block;"><input type="checkbox"> Hand warmers — A few packets for early morning rounds</label>
-    </div>
-  </div>
-
-  <!-- RECOVERY & BODY CARE -->
-  <div class="card">
-    <div class="card-header red">Recovery & Body Care</div>
-    <div class="card-body" style="font-size:0.88em; line-height:1.7;">
-      <p style="font-style:italic; margin-bottom:8px; opacity:0.8;">8 rounds in 3 days = 30+ miles of walking. Recovery is not optional.</p>
-      <label style="display:block;"><input type="checkbox"> Ibuprofen / Advil</label>
-      <label style="display:block;"><input type="checkbox"> Golf ball or lacrosse ball — for rolling out feet at night</label>
-      <label style="display:block;"><input type="checkbox"> Muscle ointment (Biofreeze, IcyHot, etc.)</label>
-      <label style="display:block;"><input type="checkbox"> Moleskin / blister pads</label>
-      <label style="display:block;"><input type="checkbox"> Re-freezable ice pack</label>
-      <label style="display:block;"><input type="checkbox"> Stretching band (optional)</label>
-      <div style="margin-top:8px; padding:8px 12px; background:#fff3e0; border-radius:6px; font-size:0.9em;">
-        💆 <strong>Pro tip:</strong> Book a massage at the resort spa for the evening after your second 36-hole day. Their spa is well-regarded — book early.
-      </div>
-    </div>
-  </div>
-
-  <!-- NON-GOLF CLOTHING -->
-  <div class="card">
-    <div class="card-header">Non-Golf Clothing</div>
-    <div class="card-body" style="font-size:0.88em; line-height:1.7;">
-      <p style="font-style:italic; margin-bottom:8px; opacity:0.8;">Bandon is extremely casual. No need to dress up for dinner — jeans and a sweater are the norm.</p>
-      <label style="display:block;"><input type="checkbox"> 2 pairs of jeans or casual pants</label>
-      <label style="display:block;"><input type="checkbox"> 2–3 casual shirts / sweaters</label>
-      <label style="display:block;"><input type="checkbox"> Underwear (4–5 pairs)</label>
-      <label style="display:block;"><input type="checkbox"> 1 warm jacket or hoodie for evenings</label>
-      <label style="display:block;"><input type="checkbox"> Sleepwear</label>
-      <div style="margin-top:8px; padding:8px 12px; background:#e3f2fd; border-radius:6px; font-size:0.9em;">
-        👕 <strong>Pack light:</strong> The resort offers laundry service, so you can have items cleaned mid-trip.
-      </div>
-    </div>
-  </div>
-
-  <!-- ELECTRONICS -->
-  <div class="card">
-    <div class="card-header">Electronics</div>
-    <div class="card-body" style="font-size:0.88em; line-height:1.7;">
-      <label style="display:block;"><input type="checkbox"> Phone + charger</label>
-      <label style="display:block;"><input type="checkbox"> Portable battery pack — long days away from outlets</label>
-      <label style="display:block;"><input type="checkbox"> Camera (optional — phone is likely sufficient)</label>
-      <label style="display:block;"><input type="checkbox"> Rangefinder batteries / charger</label>
-      <label style="display:block;"><input type="checkbox"> Earbuds (for travel or the Punchbowl)</label>
-    </div>
-  </div>
-
-  <!-- TRAVEL & ESSENTIALS -->
-  <div class="card">
-    <div class="card-header">Travel & Essentials</div>
-    <div class="card-body" style="font-size:0.88em; line-height:1.7;">
-      <label style="display:block;"><input type="checkbox"> ID / driver's license</label>
-      <label style="display:block;"><input type="checkbox"> <strong>Cash for caddie tips</strong> — Budget $40–60+ per round in tip. Have enough for all caddied rounds.</label>
-      <label style="display:block;"><input type="checkbox"> Any medications</label>
-      <label style="display:block;"><input type="checkbox"> Snacks / energy bars — for mid-round fuel on double days (turn stands on courses have food too)</label>
-      <label style="display:block;"><input type="checkbox"> Reusable water bottle — wind dehydrates you without you realizing it</label>
-      <div style="margin-top:8px; padding:8px 12px; background:#e8f5e9; border-radius:6px; font-size:0.9em;">
-        📦 <strong>Ship your clubs:</strong> Consider using Ship Sticks for door-to-door club shipping. Clubs arrive at Guest Services. Avoids airline bag fees and damage risk — book pickup several days before departure.
-      </div>
-    </div>
-  </div>
-
-</div><!-- end grid-2 -->
-
-<!-- BANDON-SPECIFIC TIPS -->
-<div class="full-width" style="margin-top:10px;">
-  <div class="card">
-    <div class="card-header gold" style="background:var(--gold); color:var(--green-dark);">Bandon-Specific Tips</div>
+    <div class="card-header green">Bandon Essentials</div>
     <div class="card-body" style="font-size:0.88em; line-height:1.8;">
-      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:16px;">
-        <div>
-          <p style="font-weight:700; color:var(--green-dark); margin-bottom:4px;">✅ What the resort provides</p>
-          <ul style="margin-left:18px;">
-            <li>Push carts (free)</li>
-            <li>24-hour shuttle service around the resort</li>
-            <li>Locker room facilities</li>
-            <li>Turn stands with food & drink on each course</li>
-            <li>Laundry service</li>
-          </ul>
-        </div>
-        <div>
-          <p style="font-weight:700; color:var(--red); margin-bottom:4px;">❌ What NOT to bring</p>
-          <ul style="margin-left:18px;">
-            <li>Motorized cart expectations (walking only!)</li>
-            <li>Formal attire (totally unnecessary)</li>
-            <li>Excessive golf balls (you won't lose many)</li>
-          </ul>
-        </div>
-        <div>
-          <p style="font-weight:700; color:var(--green-dark); margin-bottom:4px;">🏋️ Fitness prep</p>
-          <ul style="margin-left:18px;">
-            <li>Walking 36 holes = roughly 10–12 miles</li>
-            <li>Train with 10+ mile walks beforehand</li>
-            <li>Running does not substitute for walking endurance</li>
-            <li>Eat a full meal before each round</li>
-          </ul>
-        </div>
-        <div>
-          <p style="font-weight:700; color:var(--green-dark); margin-bottom:4px;">⛳ On-course tips</p>
-          <ul style="margin-left:18px;">
-            <li>Change socks & base layer between rounds on double days</li>
-            <li>The ground game is your friend — practice bump-and-runs</li>
-            <li>Drink water consistently — wind dehydrates you fast</li>
-            <li>The Punchbowl (par-3 course) is a must — bring putters and a few wedges</li>
-          </ul>
-        </div>
+      <div style="display:flex;align-items:flex-start;gap:8px;margin:5px 0;"><span style="color:var(--green);font-size:1.1em;line-height:1.4;">&#9654;</span><span><strong>Waterproof rain jacket</strong> — Loose enough to swing in with layers underneath.</span></div>
+      <div style="display:flex;align-items:flex-start;gap:8px;margin:5px 0;"><span style="color:var(--green);font-size:1.1em;line-height:1.4;">&#9654;</span><span><strong>Waterproof rain pants</strong> — Non-negotiable. Wind alone justifies these even without rain.</span></div>
+      <div style="display:flex;align-items:flex-start;gap:8px;margin:5px 0;"><span style="color:var(--green);font-size:1.1em;line-height:1.4;">&#9654;</span><span><strong>Rain gloves</strong> — e.g. FootJoy RainGrip. Game-changer in wet/windy rounds.</span></div>
+
+      <div style="display:flex;align-items:flex-start;gap:8px;margin:5px 0;"><span style="color:var(--green);font-size:1.1em;line-height:1.4;">&#9654;</span><span><strong>2 pairs of waterproof golf shoes</strong> — Alternate on 36-hole days so one can dry. Break them in before the trip.</span></div>
+      <div style="display:flex;align-items:flex-start;gap:8px;margin:5px 0;"><span style="color:var(--green);font-size:1.1em;line-height:1.4;">&#9654;</span><span><strong>5-6 pairs of moisture-wicking socks</strong> — Change between rounds on double days. #1 tip from Bandon veterans.</span></div>
+      <div style="display:flex;align-items:flex-start;gap:8px;margin:5px 0;"><span style="color:var(--green);font-size:1.1em;line-height:1.4;">&#9654;</span><span><strong>Moleskin / blister pads</strong> — 30+ miles of walking in 3 days. Blisters are common.</span></div>
+      <div style="display:flex;align-items:flex-start;gap:8px;margin:5px 0;"><span style="color:var(--green);font-size:1.1em;line-height:1.4;">&#9654;</span><span><strong>Ibuprofen</strong> — For feet and general soreness after double days.</span></div>
+      <div style="display:flex;align-items:flex-start;gap:8px;margin:5px 0;"><span style="color:var(--green);font-size:1.1em;line-height:1.4;">&#9654;</span><span><strong>Sunscreen SPF 30+</strong> — Coastal sun reflects off water. You'll burn on overcast days.</span></div>
+      <div style="display:flex;align-items:flex-start;gap:8px;margin:5px 0;"><span style="color:var(--green);font-size:1.1em;line-height:1.4;">&#9654;</span><span><strong>Lip balm with SPF</strong></span></div>
+      <div style="display:flex;align-items:flex-start;gap:8px;margin:5px 0;"><span style="color:var(--green);font-size:1.1em;line-height:1.4;">&#9654;</span><span><strong>Hand warmers</strong> — A few packets for early morning rounds (can be in the 40s).</span></div>
+      <div style="display:flex;align-items:flex-start;gap:8px;margin:5px 0;"><span style="color:var(--green);font-size:1.1em;line-height:1.4;">&#9654;</span><span><strong>Beanie / wool hat</strong> — For early morning tee times.</span></div>
+
+      <div style="display:flex;align-items:flex-start;gap:8px;margin:5px 0;"><span style="color:var(--green);font-size:1.1em;line-height:1.4;">&#9654;</span><span><strong>Zip-lock bags</strong> — For phone, wallet, scorecard in downpours.</span></div>
+      <div style="display:flex;align-items:flex-start;gap:8px;margin:5px 0;"><span style="color:var(--green);font-size:1.1em;line-height:1.4;">&#9654;</span><span><strong>2 bag towels</strong> — Keep one dry in a zip-lock.</span></div>
+
+      <div style="display:flex;align-items:flex-start;gap:8px;margin:5px 0;"><span style="color:var(--green);font-size:1.1em;line-height:1.4;">&#9654;</span><span><strong>Cash for caddie tips</strong> — Refer to <a href="#" onclick="showPage('caddies');return false;" style="color:var(--green);font-weight:700;">Caddie Picks</a> tab for estimate of caddie cash needed.</span></div>
+      <div style="display:flex;align-items:flex-start;gap:8px;margin:5px 0;"><span style="color:var(--green);font-size:1.1em;line-height:1.4;">&#9654;</span><span><strong>Snacks / energy bars</strong> — For mid-round fuel on double days.</span></div>
+      <div style="margin-top:12px; padding:8px 12px; background:#e8f5e9; border-radius:6px; font-size:0.9em;">
+        <strong>Resort provides:</strong> Push carts (free), 24hr shuttle, locker rooms, turn stands with food on every course.
       </div>
     </div>
   </div>
 </div>
 
 </div><!-- end page-packing -->
+
+<!-- ========================== PAGE: TRASH TALK ========================== -->
+<div id="page-trashtalk" class="page-section" style="display:none;">
+
+<div class="full-width">
+  <div class="card">
+    <div class="card-header red">Trash Talk Forum</div>
+    <div class="card-body" style="padding:0;">
+      <!-- Name selector -->
+      <div style="padding:14px 20px; background:#f9f7f0; border-bottom:1px solid #eee; display:flex; align-items:center; gap:12px;">
+        <label style="font-weight:700; font-size:0.85em; color:var(--green-dark);">Posting as:</label>
+        <select id="ttName" style="padding:6px 12px; border-radius:6px; border:1px solid #ddd; font-size:0.9em; font-family:inherit;">
+          <option value="">Select your name</option>
+        </select>
+      </div>
+      <!-- Messages area -->
+      <div id="ttMessages" style="height:450px; overflow-y:auto; padding:16px 20px; display:flex; flex-direction:column; gap:10px; background:#fafaf5;">
+        <div style="text-align:center; color:#aaa; font-size:0.85em; padding:40px 0;">Loading messages...</div>
+      </div>
+      <!-- Input area -->
+      <div style="padding:12px 20px; border-top:2px solid #eee; display:flex; gap:10px; background:#fff;">
+        <input type="text" id="ttInput" placeholder="Talk your trash..." style="flex:1; padding:10px 14px; border:2px solid #ddd; border-radius:8px; font-size:0.92em; font-family:inherit; outline:none; transition:border-color 0.2s;" onfocus="this.style.borderColor='var(--green)'" onblur="this.style.borderColor='#ddd'">
+        <button id="ttSend" onclick="sendTrashTalk()" style="padding:10px 24px; background:var(--red); color:white; border:none; border-radius:8px; font-weight:700; font-size:0.9em; cursor:pointer; font-family:inherit; transition:background 0.2s; letter-spacing:0.3px;" onmouseover="this.style.background='#a93226'" onmouseout="this.style.background='var(--red)'">Send</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- end page-trashtalk -->
 
 <div style="text-align: center; padding: 20px; color: #999; font-size: 0.8em;">
   Bandon Dunes 2026 Dashboard &bull; Updated March 30, 2026
@@ -2714,6 +2599,114 @@ function showPage(pageId) {
     });
 
   renderGrid();
+})();
+
+// ===== TRASH TALK CHAT (Firebase Realtime Database) =====
+(function() {
+  const DB_URL = 'https://bandon-bandits-default-rtdb.firebaseio.com';
+  const PLAYERS = [
+    'Alec Bove','Ben Harrison','Brady Gayle','Cain Cody','Camden Cooper',
+    'Collin Horner','Harrison Hancock','John Armes','John Gressett',
+    'Josh John','Stephen Wheatcroft','Will Hayward'
+  ];
+  const COLORS = {
+    'Alec Bove':'#2980b9','Ben Harrison':'#27ae60','Brady Gayle':'#8e44ad','Cain Cody':'#d35400',
+    'Camden Cooper':'#16a085','Collin Horner':'#c0392b','Harrison Hancock':'#2c3e50','John Armes':'#f39c12',
+    'John Gressett':'#1abc9c','Josh John':'#e74c3c','Stephen Wheatcroft':'#3498db','Will Hayward':'#9b59b6'
+  };
+
+  // Populate name dropdown
+  const sel = document.getElementById('ttName');
+  PLAYERS.forEach(p => { const o = document.createElement('option'); o.value = p; o.textContent = p; sel.appendChild(o); });
+
+  // Restore saved name
+  const saved = localStorage.getItem('tt_name');
+  if (saved) sel.value = saved;
+  sel.addEventListener('change', () => localStorage.setItem('tt_name', sel.value));
+
+  const msgBox = document.getElementById('ttMessages');
+
+  function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  function formatTime(ts) {
+    const d = new Date(ts);
+    const now = new Date();
+    const diff = now - d;
+    if (diff < 60000) return 'just now';
+    if (diff < 3600000) return Math.floor(diff/60000) + 'm ago';
+    if (diff < 86400000) return Math.floor(diff/3600000) + 'h ago';
+    return d.toLocaleDateString('en-US', {month:'short', day:'numeric'}) + ' ' + d.toLocaleTimeString('en-US', {hour:'numeric', minute:'2-digit'});
+  }
+
+  function renderMessages(messages) {
+    if (!messages || Object.keys(messages).length === 0) {
+      msgBox.innerHTML = '<div style="text-align:center; color:#aaa; font-size:0.85em; padding:40px 0;">No trash talk yet. Someone start it.</div>';
+      return;
+    }
+    const sorted = Object.values(messages).sort((a,b) => a.ts - b.ts);
+    msgBox.innerHTML = sorted.map(m => {
+      const color = COLORS[m.name] || '#666';
+      const initial = m.name ? m.name.split(' ').map(w=>w[0]).join('') : '?';
+      return `<div style="display:flex;gap:10px;align-items:flex-start;">
+        <div style="min-width:36px;height:36px;border-radius:50%;background:${color};color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:0.75em;letter-spacing:0.5px;flex-shrink:0;">${escapeHtml(initial)}</div>
+        <div style="flex:1;">
+          <div style="display:flex;align-items:baseline;gap:8px;">
+            <span style="font-weight:700;font-size:0.88em;color:${color};">${escapeHtml(m.name)}</span>
+            <span style="font-size:0.72em;color:#aaa;">${formatTime(m.ts)}</span>
+          </div>
+          <div style="font-size:0.9em;margin-top:2px;line-height:1.5;">${escapeHtml(m.text)}</div>
+        </div>
+      </div>`;
+    }).join('');
+    msgBox.scrollTop = msgBox.scrollHeight;
+  }
+
+  // Listen for messages
+  const evtSource = new EventSource(DB_URL + '/chat.json');
+  evtSource.onmessage = function(e) {
+    try {
+      const data = JSON.parse(e.data);
+      if (data && data.data !== null) renderMessages(data.data);
+      else if (data && data.path && data.data) loadMessages();
+    } catch(ex) { loadMessages(); }
+  };
+  evtSource.onerror = function() { loadMessages(); };
+
+  function loadMessages() {
+    fetch(DB_URL + '/chat.json')
+      .then(r => r.json())
+      .then(data => renderMessages(data))
+      .catch(() => { msgBox.innerHTML = '<div style="text-align:center;color:#aaa;padding:40px 0;">Could not load messages.</div>'; });
+  }
+  loadMessages();
+
+  // Send message
+  window.sendTrashTalk = function() {
+    const name = document.getElementById('ttName').value;
+    const input = document.getElementById('ttInput');
+    const text = input.value.trim();
+    if (!name) { alert('Select your name first.'); return; }
+    if (!text) return;
+
+    const msg = { name: name, text: text, ts: Date.now() };
+    fetch(DB_URL + '/chat.json', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(msg)
+    }).then(() => {
+      input.value = '';
+      loadMessages();
+    }).catch(() => alert('Failed to send. Try again.'));
+  };
+
+  // Enter key to send
+  document.getElementById('ttInput').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendTrashTalk(); }
+  });
 })();
 </script>
 </body>
