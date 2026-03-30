@@ -2609,20 +2609,31 @@ function showPage(pageId) {
     'Collin Horner','Harrison Hancock','John Armes','John Gressett',
     'Josh John','Stephen Wheatcroft','Will Hayward'
   ];
-  const COLORS = {
-    'Alec Bove':'#2980b9','Ben Harrison':'#27ae60','Brady Gayle':'#8e44ad','Cain Cody':'#d35400',
-    'Camden Cooper':'#16a085','Collin Horner':'#c0392b','Harrison Hancock':'#2c3e50','John Armes':'#f39c12',
-    'John Gressett':'#1abc9c','Josh John':'#e74c3c','Stephen Wheatcroft':'#3498db','Will Hayward':'#9b59b6'
-  };
+
+  // Build avatar map from the roster table images on the home page
+  const AVATARS = {};
+  document.querySelectorAll('#page-home tr').forEach(tr => {
+    const img = tr.querySelector('.player-avatar');
+    const nameCell = tr.querySelectorAll('td')[1];
+    if (img && nameCell) {
+      const name = nameCell.textContent.trim();
+      if (name) AVATARS[name] = img.src;
+    }
+  });
 
   // Populate name dropdown
   const sel = document.getElementById('ttName');
   PLAYERS.forEach(p => { const o = document.createElement('option'); o.value = p; o.textContent = p; sel.appendChild(o); });
 
-  // Restore saved name
-  const saved = localStorage.getItem('tt_name');
+  // Sync with caddie picks selection (shared localStorage key)
+  const saved = localStorage.getItem('bandon_caddie_user');
   if (saved) sel.value = saved;
-  sel.addEventListener('change', () => localStorage.setItem('tt_name', sel.value));
+  sel.addEventListener('change', () => {
+    localStorage.setItem('bandon_caddie_user', sel.value);
+    // Also sync caddie picks dropdown if it exists
+    const caddieWho = document.getElementById('caddieWho');
+    if (caddieWho) { caddieWho.value = sel.value; if (window.setCaddieUser) window.setCaddieUser(sel.value); }
+  });
 
   const msgBox = document.getElementById('ttMessages');
 
@@ -2634,6 +2645,7 @@ function showPage(pageId) {
 
   function formatTime(ts) {
     const d = new Date(ts);
+    if (isNaN(d.getTime())) return '';
     const now = new Date();
     const diff = now - d;
     if (diff < 60000) return 'just now';
@@ -2649,13 +2661,15 @@ function showPage(pageId) {
     }
     const sorted = Object.values(messages).sort((a,b) => a.ts - b.ts);
     msgBox.innerHTML = sorted.map(m => {
-      const color = COLORS[m.name] || '#666';
-      const initial = m.name ? m.name.split(' ').map(w=>w[0]).join('') : '?';
+      const avatarSrc = AVATARS[m.name];
+      const avatarHtml = avatarSrc
+        ? `<img src="${avatarSrc}" style="width:36px;height:36px;border-radius:50%;object-fit:cover;flex-shrink:0;">`
+        : `<div style="min-width:36px;height:36px;border-radius:50%;background:#888;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:0.75em;flex-shrink:0;">${escapeHtml(m.name ? m.name.split(' ').map(w=>w[0]).join('') : '?')}</div>`;
       return `<div style="display:flex;gap:10px;align-items:flex-start;">
-        <div style="min-width:36px;height:36px;border-radius:50%;background:${color};color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:0.75em;letter-spacing:0.5px;flex-shrink:0;">${escapeHtml(initial)}</div>
+        ${avatarHtml}
         <div style="flex:1;">
           <div style="display:flex;align-items:baseline;gap:8px;">
-            <span style="font-weight:700;font-size:0.88em;color:${color};">${escapeHtml(m.name)}</span>
+            <span style="font-weight:700;font-size:0.88em;color:var(--green-dark);">${escapeHtml(m.name)}</span>
             <span style="font-size:0.72em;color:#aaa;">${formatTime(m.ts)}</span>
           </div>
           <div style="font-size:0.9em;margin-top:2px;line-height:1.5;">${escapeHtml(m.text)}</div>
