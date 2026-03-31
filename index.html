@@ -2623,6 +2623,25 @@ function showPage(pageId) {
     }
   });
 
+  // Inject avatars into Bandit Cup pairings
+  const SHORT_TO_FULL = {
+    'Josh J': 'Josh John', 'John G': 'John Gressett', 'John A': 'John Armes',
+    'Stephen W': 'Stephen Wheatcroft', 'Camden C': 'Camden Cooper', 'Collin H': 'Collin Horner',
+    'Alec B': 'Alec Bove', 'Ben H': 'Ben Harrison', 'Brady G': 'Brady Gayle',
+    'Cain C': 'Cain Cody', 'Harrison H': 'Harrison Hancock', 'Will H': 'Will Hayward'
+  };
+  function avatarImg(fullName) {
+    const src = AVATARS[fullName];
+    if (!src) return '';
+    return '<img src="' + src + '" style="width:22px;height:22px;border-radius:50%;object-fit:cover;vertical-align:middle;margin:0 2px;border:1.5px solid var(--gold);">';
+  }
+  document.querySelectorAll('.match-team-a, .match-team-b').forEach(span => {
+    const text = span.textContent.trim();
+    const names = text.split(/\s*&\s*/);
+    const html = names.map(n => avatarImg(SHORT_TO_FULL[n] || '') + ' ' + n).join(' &amp; ');
+    span.innerHTML = html;
+  });
+
   // Populate name dropdown
   const sel = document.getElementById('ttName');
   PLAYERS.forEach(p => { const o = document.createElement('option'); o.value = p; o.textContent = p; sel.appendChild(o); });
