@@ -763,8 +763,11 @@
 <!-- ===================== WEATHER + RESORT MAP ===================== -->
 <div class="grid-2">
   <div class="card" style="display: flex; flex-direction: column;">
-    <div class="card-header blue">Bandon Weather Forecast</div>
+    <div class="card-header blue">Bandon Weather</div>
     <div class="card-body" style="padding: 12px 14px; display: flex; flex-direction: column; flex: 1;">
+      <div id="currentWeather" style="margin-bottom: 12px; padding: 10px 14px; background: linear-gradient(135deg, #1a5276, #2980b9); border-radius: 8px; color: white; display: flex; align-items: center; gap: 14px;">
+        <div id="currentWeatherContent" style="flex: 1; font-size: 0.85em; color: rgba(255,255,255,0.7);">Loading current conditions...</div>
+      </div>
       <div id="weatherWidget" class="weather-loading" style="flex: 1; display: flex; flex-direction: column;">Loading forecast...</div>
     </div>
   </div>
@@ -903,7 +906,7 @@
           <use href="#flag" transform="translate(175,60)"/>
           <rect x="118" y="28" width="114" height="18" rx="9" fill="rgba(30,61,26,0.85)" filter="url(#shadowSm)"/>
           <text x="175" y="40" font-size="10" fill="white" font-weight="700" text-anchor="middle" font-family="'Segoe UI', sans-serif">SHEEP RANCH</text>
-          <text x="240" y="63" font-size="8" fill="#5a7a4a" font-style="italic" font-family="'Segoe UI', sans-serif">Ocean every hole</text>
+          <text x="175" y="68" font-size="7" fill="#5a7a4a" font-style="italic" text-anchor="middle" font-family="'Segoe UI', sans-serif">Coore &amp; Crenshaw &#8226; Ocean on all 18</text>
 
           <!-- Pacific Dunes -->
           <ellipse cx="168" cy="140" rx="52" ry="32" fill="url(#courseGreen)" opacity="0.35" filter="url(#shadowSm)"/>
@@ -911,7 +914,7 @@
           <use href="#flag" transform="translate(168,142)"/>
           <rect x="113" y="110" width="110" height="18" rx="9" fill="rgba(30,61,26,0.85)" filter="url(#shadowSm)"/>
           <text x="168" y="122" font-size="10" fill="white" font-weight="700" text-anchor="middle" font-family="'Segoe UI', sans-serif">PACIFIC DUNES</text>
-          <text x="230" y="145" font-size="8" fill="#5a7a4a" font-style="italic" font-family="'Segoe UI', sans-serif">#1 Public Course</text>
+          <text x="168" y="152" font-size="7" fill="#5a7a4a" font-style="italic" text-anchor="middle" font-family="'Segoe UI', sans-serif">Tom Doak &#8226; #1 Public Course in U.S.</text>
 
           <!-- Bandon Dunes -->
           <ellipse cx="170" cy="228" rx="52" ry="32" fill="url(#courseGreen)" opacity="0.35" filter="url(#shadowSm)"/>
@@ -919,7 +922,7 @@
           <use href="#flag" transform="translate(170,230)"/>
           <rect x="115" y="198" width="110" height="18" rx="9" fill="rgba(30,61,26,0.85)" filter="url(#shadowSm)"/>
           <text x="170" y="210" font-size="10" fill="white" font-weight="700" text-anchor="middle" font-family="'Segoe UI', sans-serif">BANDON DUNES</text>
-          <text x="230" y="233" font-size="8" fill="#5a7a4a" font-style="italic" font-family="'Segoe UI', sans-serif">The Original (1999)</text>
+          <text x="170" y="240" font-size="7" fill="#5a7a4a" font-style="italic" text-anchor="middle" font-family="'Segoe UI', sans-serif">David Kidd &#8226; The course that started it all</text>
 
           <!-- Old Macdonald -->
           <ellipse cx="360" cy="115" rx="58" ry="32" fill="url(#courseGreen)" opacity="0.35" filter="url(#shadowSm)"/>
@@ -927,7 +930,7 @@
           <use href="#flag" transform="translate(360,117)"/>
           <rect x="303" y="85" width="114" height="18" rx="9" fill="rgba(30,61,26,0.85)" filter="url(#shadowSm)"/>
           <text x="360" y="97" font-size="10" fill="white" font-weight="700" text-anchor="middle" font-family="'Segoe UI', sans-serif">OLD MACDONALD</text>
-          <text x="360" y="138" font-size="8" fill="#5a7a4a" font-style="italic" text-anchor="middle" font-family="'Segoe UI', sans-serif">Golden Age Templates</text>
+          <text x="360" y="138" font-size="7" fill="#5a7a4a" font-style="italic" text-anchor="middle" font-family="'Segoe UI', sans-serif">Doak &amp; Urbina &#8226; 80-yd wide fairways</text>
 
           <!-- Bandon Trails -->
           <ellipse cx="410" cy="240" rx="58" ry="32" fill="url(#courseGreen)" opacity="0.35" filter="url(#shadowSm)"/>
@@ -935,7 +938,7 @@
           <use href="#flag" transform="translate(410,242)"/>
           <rect x="353" y="210" width="114" height="18" rx="9" fill="rgba(30,61,26,0.85)" filter="url(#shadowSm)"/>
           <text x="410" y="222" font-size="10" fill="white" font-weight="700" text-anchor="middle" font-family="'Segoe UI', sans-serif">BANDON TRAILS</text>
-          <text x="410" y="262" font-size="8" fill="#5a7a4a" font-style="italic" text-anchor="middle" font-family="'Segoe UI', sans-serif">Dunes, Meadow &amp; Forest</text>
+          <text x="410" y="262" font-size="7" fill="#5a7a4a" font-style="italic" text-anchor="middle" font-family="'Segoe UI', sans-serif">Coore &amp; Crenshaw &#8226; 3 ecosystems in 1 round</text>
 
           <!-- Bandon Preserve (par 3) -->
           <ellipse cx="265" cy="310" rx="40" ry="22" fill="url(#courseGreenPar3)" opacity="0.25" filter="url(#shadowSm)"/>
@@ -943,7 +946,7 @@
           <use href="#flag" transform="translate(265,312)"/>
           <rect x="224" y="285" width="82" height="16" rx="8" fill="rgba(139,105,20,0.85)" filter="url(#shadowSm)"/>
           <text x="265" y="296" font-size="9" fill="white" font-weight="700" text-anchor="middle" font-family="'Segoe UI', sans-serif">PRESERVE</text>
-          <text x="265" y="328" font-size="7.5" fill="#8B6914" font-style="italic" text-anchor="middle" font-family="'Segoe UI', sans-serif">13-Hole Par 3</text>
+          <text x="265" y="328" font-size="7" fill="#8B6914" font-style="italic" text-anchor="middle" font-family="'Segoe UI', sans-serif">Coore &amp; Crenshaw &#8226; 13-hole par 3</text>
 
           <!-- Shorty's (par 3) -->
           <ellipse cx="440" cy="170" rx="35" ry="18" fill="url(#courseGreenPar3)" opacity="0.25" filter="url(#shadowSm)"/>
@@ -951,7 +954,7 @@
           <use href="#flag" transform="translate(440,172)"/>
           <rect x="407" y="148" width="66" height="16" rx="8" fill="rgba(139,105,20,0.85)" filter="url(#shadowSm)"/>
           <text x="440" y="159" font-size="9" fill="white" font-weight="700" text-anchor="middle" font-family="'Segoe UI', sans-serif">SHORTY'S</text>
-          <text x="440" y="188" font-size="7.5" fill="#8B6914" font-style="italic" text-anchor="middle" font-family="'Segoe UI', sans-serif">19-Hole Par 3</text>
+          <text x="440" y="188" font-size="7" fill="#8B6914" font-style="italic" text-anchor="middle" font-family="'Segoe UI', sans-serif">Tom Doak &#8226; 19 holes, all under 130 yds</text>
 
           <!-- ===== CHROME LAKE LODGING ===== -->
           <circle cx="355" cy="355" r="35" fill="url(#lodgeGlow)"/>
@@ -978,6 +981,14 @@
           <g transform="translate(280,265)">
             <rect x="-18" y="-6" width="36" height="14" rx="4" fill="rgba(100,160,80,0.2)"/>
             <text x="0" y="4" font-size="7" fill="#5a7a4a" font-weight="600" text-anchor="middle" font-family="'Segoe UI', sans-serif">Practice</text>
+          </g>
+
+          <!-- ===== SPA / HOT TUB / STEAM ROOM ===== -->
+          <g transform="translate(500,370)">
+            <rect x="-38" y="-18" width="76" height="38" rx="8" fill="rgba(155,89,182,0.12)" stroke="#8e44ad" stroke-width="0.8"/>
+            <text x="0" y="-5" font-size="10" text-anchor="middle">&#9832;</text>
+            <text x="0" y="7" font-size="8" fill="#8e44ad" font-weight="700" text-anchor="middle" font-family="'Segoe UI', sans-serif">Resort Spa</text>
+            <text x="0" y="16" font-size="6.5" fill="#8e44ad" font-style="italic" text-anchor="middle" font-family="'Segoe UI', sans-serif">Hot Tub &#8226; Steam Room</text>
           </g>
 
           <!-- North arrow -->
@@ -1907,6 +1918,70 @@
 
   update();
   setInterval(update, 1000);
+})();
+
+// ===== CURRENT WEATHER (Real-time) =====
+(function() {
+  const el = document.getElementById('currentWeatherContent');
+  const lat = 43.12, lon = -124.41;
+
+  function wxIcon(code) {
+    if (code === 0) return '\u2600\uFE0F';
+    if (code <= 3) return '\u26C5';
+    if (code <= 48) return '\uD83C\uDF2B\uFE0F';
+    if (code <= 55) return '\uD83C\uDF26\uFE0F';
+    if (code <= 65) return '\uD83C\uDF27\uFE0F';
+    if (code <= 67) return '\uD83C\uDF28\uFE0F';
+    if (code <= 82) return '\uD83C\uDF27\uFE0F';
+    return '\u26C8\uFE0F';
+  }
+  function wxDesc(code) {
+    if (code === 0) return 'Clear';
+    if (code <= 3) return 'Partly Cloudy';
+    if (code <= 48) return 'Foggy';
+    if (code <= 55) return 'Drizzle';
+    if (code <= 61) return 'Light Rain';
+    if (code <= 65) return 'Rain';
+    if (code <= 67) return 'Freezing Rain';
+    if (code <= 82) return 'Showers';
+    return 'Thunderstorm';
+  }
+  function windDir(deg) {
+    const dirs = ['N','NNE','NE','ENE','E','ESE','SE','SSE','S','SSW','SW','WSW','W','WNW','NW','NNW'];
+    return dirs[Math.round(deg / 22.5) % 16];
+  }
+
+  const url = 'https://api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + lon +
+    '&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m,wind_direction_10m,wind_gusts_10m' +
+    '&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=America/Los_Angeles';
+
+  fetch(url).then(r => r.json()).then(data => {
+    if (!data.current) throw new Error('No data');
+    const c = data.current;
+    const icon = wxIcon(c.weather_code);
+    const desc = wxDesc(c.weather_code);
+    const dir = windDir(c.wind_direction_10m);
+    const time = new Date(c.time).toLocaleString('en-US', { timeZone: 'America/Los_Angeles', hour: 'numeric', minute: '2-digit', hour12: true });
+    el.innerHTML =
+      '<div style="display:flex; align-items:center; gap:14px;">' +
+        '<div style="font-size:2.2em; line-height:1;">' + icon + '</div>' +
+        '<div style="flex:1;">' +
+          '<div style="font-size:0.72em; text-transform:uppercase; letter-spacing:1px; opacity:0.7; margin-bottom:2px;">Right Now in Bandon</div>' +
+          '<div style="display:flex; align-items:baseline; gap:8px;">' +
+            '<span style="font-size:1.8em; font-weight:800; color:white;">' + Math.round(c.temperature_2m) + '\u00B0F</span>' +
+            '<span style="font-size:0.95em; color:rgba(255,255,255,0.85);">' + desc + '</span>' +
+          '</div>' +
+          '<div style="font-size:0.78em; color:rgba(255,255,255,0.7); margin-top:3px;">' +
+            'Wind: ' + Math.round(c.wind_speed_10m) + ' mph ' + dir +
+            (c.wind_gusts_10m ? ' (gusts ' + Math.round(c.wind_gusts_10m) + ')' : '') +
+            ' &nbsp;&#8226;&nbsp; Humidity: ' + Math.round(c.relative_humidity_2m) + '%' +
+          '</div>' +
+          '<div style="font-size:0.65em; color:rgba(255,255,255,0.4); margin-top:3px;">Updated ' + time + ' PT</div>' +
+        '</div>' +
+      '</div>';
+  }).catch(() => {
+    el.innerHTML = '<span style="font-size:0.8em; color:rgba(255,255,255,0.5);">Current conditions unavailable</span>';
+  });
 })();
 
 // ===== WEATHER WIDGET =====
