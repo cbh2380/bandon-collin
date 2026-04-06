@@ -211,16 +211,68 @@
   /* Match Format Styles */
   .team-box {
     background: var(--sand);
-    border-radius: 8px;
-    padding: 15px;
+    border-radius: 12px;
+    padding: 20px 15px 15px;
     margin-bottom: 12px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
   }
+  .team-box::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+  }
+  .team-a::before { background: linear-gradient(90deg, var(--green), var(--green-light)); }
+  .team-b::before { background: linear-gradient(90deg, var(--gold), #e0c060); }
   .team-title {
-    font-weight: 800; font-size: 1.1em; margin-bottom: 10px;
-    padding-bottom: 6px; border-bottom: 2px solid;
+    font-weight: 900; font-size: 1.5em; margin-bottom: 4px;
+    letter-spacing: 2px; text-transform: uppercase;
   }
-  .team-a .team-title { color: var(--green-dark); border-color: var(--green); }
-  .team-b .team-title { color: var(--green-dark); border-color: var(--gold); }
+  .team-subtitle {
+    font-size: 0.9em; color: #888; margin-bottom: 16px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 1.5px;
+  }
+  .team-a .team-title { color: var(--green-dark); }
+  .team-b .team-title { color: #8B6914; }
+  .team-roster {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px 12px;
+    max-width: 360px;
+    margin: 0 auto;
+  }
+  .team-face {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .team-face img {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--green);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.18);
+    transition: transform 0.2s;
+  }
+  .team-face img:hover {
+    transform: scale(1.12);
+  }
+  .team-b .team-face img {
+    border-color: var(--gold);
+  }
+  .team-face-name {
+    margin-top: 6px;
+    font-size: 1em;
+    font-weight: 800;
+    color: var(--green-dark);
+    line-height: 1.2;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
   .team-player { padding: 4px 0; font-size: 0.92em; display: flex; justify-content: space-between; }
   .team-player .hc { color: #888; font-size: 0.85em; }
 
@@ -564,6 +616,9 @@
     .round-row { flex-wrap: wrap; gap: 4px; }
     .round-fee { font-size: 0.8em; }
     .team-player { font-size: 0.85em; }
+    .team-roster { max-width: 280px; gap: 12px 8px; }
+    .team-face img { width: 72px; height: 72px; }
+    .team-face-name { font-size: 0.7em; }
     .header .dates { font-size: 0.9em; }
     .page-nav-btn { padding: 10px 12px; font-size: 0.75em; }
     .modal-stats { grid-template-columns: repeat(2, 1fr); }
@@ -1509,22 +1564,28 @@
       <!-- TEAMS -->
       <div class="grid-2" style="margin-bottom: 20px;">
         <div class="team-box team-a">
-          <div class="team-title">TEAM OTH (North Bend)</div>
-          <div class="team-player"><span>Camden Cooper</span></div>
-          <div class="team-player"><span>Collin Horner</span></div>
-          <div class="team-player"><span>John Armes</span></div>
-          <div class="team-player"><span>John Gressett</span></div>
-          <div class="team-player"><span>Josh John</span></div>
-          <div class="team-player"><span>Stephen Wheatcroft</span></div>
+          <div class="team-title">Team OTH</div>
+          <div class="team-subtitle">North Bend</div>
+          <div class="team-roster">
+            <div class="team-face"><img src="Faces/Camden_C_face.jpg" alt="Camden Cooper"><div class="team-face-name">Camden<br>Cooper</div></div>
+            <div class="team-face"><img src="Faces/Collin_H_face.jpg" alt="Collin Horner"><div class="team-face-name">Collin<br>Horner</div></div>
+            <div class="team-face"><img src="Faces/John_A_face.jpg" alt="John Armes"><div class="team-face-name">John<br>Armes</div></div>
+            <div class="team-face"><img src="Faces/John_G_face.jpg" alt="John Gressett"><div class="team-face-name">John<br>Gressett</div></div>
+            <div class="team-face"><img src="Faces/Josh_J_face.jpg" alt="Josh John"><div class="team-face-name">Josh<br>John</div></div>
+            <div class="team-face"><img src="Faces/Stephen_W_face.jpg" alt="Stephen Wheatcroft"><div class="team-face-name">Stephen<br>Wheatcroft</div></div>
+          </div>
         </div>
         <div class="team-box team-b">
-          <div class="team-title">TEAM EUG (Eugene)</div>
-          <div class="team-player"><span>Alec Bove</span></div>
-          <div class="team-player"><span>Ben Harrison</span></div>
-          <div class="team-player"><span>Brady Gayle</span></div>
-          <div class="team-player"><span>Cain Cody</span></div>
-          <div class="team-player"><span>Harrison Hancock</span></div>
-          <div class="team-player"><span>Will Hayward</span></div>
+          <div class="team-title">Team EUG</div>
+          <div class="team-subtitle">Eugene</div>
+          <div class="team-roster">
+            <div class="team-face"><img src="Faces/Alec_B_face.jpg" alt="Alec Bove"><div class="team-face-name">Alec<br>Bove</div></div>
+            <div class="team-face"><img src="Faces/Ben_H_face.jpg" alt="Ben Harrison"><div class="team-face-name">Ben<br>Harrison</div></div>
+            <div class="team-face"><img src="Faces/Brady_G_face.jpg" alt="Brady Gayle"><div class="team-face-name">Brady<br>Gayle</div></div>
+            <div class="team-face"><img src="Faces/Cain_C_face.jpg" alt="Cain Cody"><div class="team-face-name">Cain<br>Cody</div></div>
+            <div class="team-face"><img src="Faces/Harrison_H_face.jpg" alt="Harrison Hancock"><div class="team-face-name">Harrison<br>Hancock</div></div>
+            <div class="team-face"><img src="Faces/Will_H_face.jpg" alt="Will Hayward"><div class="team-face-name">Will<br>Hayward</div></div>
+          </div>
         </div>
       </div>
 
