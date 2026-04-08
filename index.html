@@ -16,6 +16,25 @@ body{margin:0;font-family:system-ui;background:#f5f0e1;}
 .todo label{display:block;padding:6px 0;}
 .small{color:#666;font-size:12px;}
 .highlight{font-weight:700;color:#1e3d1a;}
+  .link-btn{
+display:inline-block;
+margin-top:8px;
+padding:10px 12px;
+background:#1e3d1a;
+color:white;
+border-radius:6px;
+text-decoration:none;
+font-weight:600;
+}
+
+.link-btn:active{
+opacity:0.8;
+}
+  .highlight{
+font-weight:700;
+color:#1e3d1a;
+margin:6px 0;
+}
 </style>
 
 </head>
@@ -43,17 +62,63 @@ body{margin:0;font-family:system-ui;background:#f5f0e1;}
 
 <!-- TRAVEL -->
 <div id="travel" class="page">
+
 <div class="card">
-<h3>Flights</h3>
-<p>UA 2177 → UA 4689</p>
-<p>Return UA 5938 → UA 1375</p>
-<a href="https://www.united.com" target="_blank">Open United</a>
+<h3>May 1 – Departure</h3>
+
+<p><strong>Status:</strong> <span id="travelStatus">Calculating...</span></p>
+
+<p><strong>Leave House:</strong> 5:45am</p>
+<p id="countdownLeave" class="highlight"></p>
+
+<p><strong>Parking:</strong><br>
+Fast Park Austin (88991683)
+</p>
+
+<p><strong>Flight 1</strong><br>
+UA 2177 — 7:10am (Board ~6:30)
+</p>
+
+<p id="countdownFlight" class="highlight"></p>
+
+<div style="margin-top:10px;">
+<a href="united://" class="link-btn">Open United App</a><br>
+<a href="https://www.united.com/en/us" target="_blank" class="small">Backup link</a>
+</div>
+
+<div style="margin-top:10px;">
+<a href="https://maps.google.com/?q=Austin+Airport" class="link-btn">Directions</a>
+</div>
+
+<div style="margin-top:10px;">
+<a href="tel:+15413470000" class="link-btn">Call Shuttle</a>
+</div>
+
 </div>
 
 <div class="card">
-<h3>Parking</h3>
-<p>Fast Park Austin (88991683)</p>
+<h3>Return – May 5</h3>
+
+<p><strong>Pickup:</strong> Connoisseur Shuttle</p>
+
+<p>UA 5938 — 1:35pm</p>
+<p>UA 1375 — 5:10pm</p>
+
+<a href="united://" class="link-btn">Open United</a>
+
 </div>
+
+<div class="card">
+<h3>Quick Actions</h3>
+
+<a href="https://www.united.com" target="_blank">✈️ United</a><br>
+<a href="https://www.ghin.com" target="_blank">⛳ GHIN</a><br>
+<a href="https://maps.google.com/?q=Austin+Airport" target="_blank">📍 Airport</a>
+
+</div>
+
+</div>
+
 </div>
 
 <!-- DAILY -->
@@ -218,6 +283,48 @@ loadDay(today);
 loadWeather();
 autoLoad();
 </script>
+<script>
 
+// TIME HELPERS
+function minutesUntil(targetHour, targetMin){
+let now = new Date();
+let target = new Date();
+target.setHours(targetHour, targetMin, 0, 0);
+return Math.round((target - now) / 60000);
+}
+
+// UPDATE TRAVEL STATUS
+function updateTravel(){
+
+let leaveMins = minutesUntil(5,45);
+let flightMins = minutesUntil(6,30);
+
+let leaveText = leaveMins > 0 
+  ? `Leave in ${leaveMins} min`
+  : `You should have left ${Math.abs(leaveMins)} min ago`;
+
+let flightText = flightMins > 0 
+  ? `Boarding in ${flightMins} min`
+  : `Boarding started ${Math.abs(flightMins)} min ago`;
+
+document.getElementById("countdownLeave").innerText = leaveText;
+document.getElementById("countdownFlight").innerText = flightText;
+
+// STATUS LOGIC
+let status = "Chill";
+
+if(leaveMins < 60) status = "Get moving";
+if(leaveMins < 30) status = "Leave NOW";
+if(leaveMins < 0) status = "You’re late";
+
+document.getElementById("travelStatus").innerText = status;
+
+}
+
+// RUN EVERY 30 SECONDS
+setInterval(updateTravel, 30000);
+updateTravel();
+
+</script>
 </body>
 </html>
