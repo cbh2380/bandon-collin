@@ -678,14 +678,45 @@
     <button class="page-nav-btn" onclick="showPage('courses')">Courses</button>
     <button class="page-nav-btn" onclick="showPage('caddies')">Caddie Picks</button>
     <button class="page-nav-btn" onclick="showPage('payments')">Payments</button>
-    <button class="page-nav-btn" onclick="showPage('packing')">Packing List</button>
     <button class="page-nav-btn" onclick="showPage('travel')">Travel</button>
 <button class="page-nav-btn" onclick="showPage('daily')">Daily</button>
 <button class="page-nav-btn" onclick="showPage('todo')">To-Do</button>
     <button class="page-nav-btn" onclick="showPage('trashtalk')">Trash Talk <span style="background: var(--red); color: white; font-size: 0.6em; font-weight: 800; padding: 2px 5px; border-radius: 6px; letter-spacing: 0.5px; vertical-align: middle; margin-left: 4px;">NEW</span></button>
   </div>
 </nav>
+<div id="page-travel" class="page-section">
+  <div class="card">
+    <div class="card-header blue">Travel</div>
+    <div class="card-body">
+      Flights + parking here
+    </div>
+  </div>
+</div>
 
+<div id="page-daily" class="page-section">
+  <div class="card">
+    <div class="card-header">Daily</div>
+    <div class="card-body">
+      <button onclick="loadDay(1)">May 1</button>
+      <button onclick="loadDay(2)">May 2</button>
+      <button onclick="loadDay(3)">May 3</button>
+      <button onclick="loadDay(4)">May 4</button>
+      <button onclick="loadDay(5)">May 5</button>
+    </div>
+  </div>
+  <div id="dayContent"></div>
+</div>
+
+<div id="page-todo" class="page-section">
+  <div class="card">
+    <div class="card-header">To-Do</div>
+    <div class="card-body todo-list">
+      <label><input type="checkbox"> Pack rain gear</label>
+      <label><input type="checkbox"> Pack shoes</label>
+    </div>
+  </div>
+</div>
+  
 <div class="container">
 
 <!-- ========================== PAGE: HOME ========================== -->
