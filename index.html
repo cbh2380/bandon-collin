@@ -15,29 +15,15 @@ body{margin:0;font-family:system-ui;background:#f5f0e1;}
 .card{background:white;padding:15px;border-radius:10px;margin-bottom:15px;}
 .todo label{display:block;padding:6px 0;}
 .small{color:#666;font-size:12px;}
-.highlight{font-weight:700;color:#1e3d1a;}
-  .link-btn{
-display:inline-block;
-margin-top:8px;
-padding:10px 12px;
-background:#1e3d1a;
-color:white;
-border-radius:6px;
-text-decoration:none;
-font-weight:600;
-}
-
-.link-btn:active{
-opacity:0.8;
-}
-  .highlight{
-font-weight:700;
-color:#1e3d1a;
-margin:6px 0;
+.highlight{font-weight:700;color:#1e3d1a;margin:6px 0;}
+.link-btn{
+display:inline-block;margin-top:8px;padding:10px 12px;
+background:#1e3d1a;color:white;border-radius:6px;
+text-decoration:none;font-weight:600;
 }
 </style>
-
 </head>
+
 <body>
 
 <div class="header">
@@ -70,6 +56,7 @@ margin:6px 0;
 
 <p><strong>Leave House:</strong> 5:45am</p>
 <p id="countdownLeave" class="highlight"></p>
+<p id="smartLeave" class="highlight"></p>
 
 <p><strong>Parking:</strong><br>
 Fast Park Austin (88991683)
@@ -87,7 +74,9 @@ UA 2177 — 7:10am (Board ~6:30)
 </div>
 
 <div style="margin-top:10px;">
-<a href="https://maps.google.com/?q=Austin+Airport" class="link-btn">Directions</a>
+<a href="https://waze.com/ul?q=Austin%20Airport&navigate=yes" class="link-btn">
+Open Waze (Live Traffic)
+</a>
 </div>
 
 <div style="margin-top:10px;">
@@ -114,8 +103,6 @@ UA 2177 — 7:10am (Board ~6:30)
 <a href="https://www.united.com" target="_blank">✈️ United</a><br>
 <a href="https://www.ghin.com" target="_blank">⛳ GHIN</a><br>
 <a href="https://maps.google.com/?q=Austin+Airport" target="_blank">📍 Airport</a>
-
-</div>
 
 </div>
 
@@ -173,6 +160,7 @@ UA 2177 — 7:10am (Board ~6:30)
 </div>
 
 <script>
+// NAV
 function showPage(id){
 document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
 document.getElementById(id).classList.add('active');
@@ -180,13 +168,37 @@ document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active')
 event.target.classList.add('active');
 }
 
-// SAVE CHECKLIST
+// CHECKLIST SAVE
 document.querySelectorAll('.todo input').forEach((box,i)=>{
 box.checked = localStorage.getItem('cb'+i)==='true';
 box.onchange = ()=>localStorage.setItem('cb'+i, box.checked);
 });
 
-// DAILY PLAN
+// WEATHER
+async function loadWeather(){
+let res = await fetch("https://api.open-meteo.com/v1/forecast?latitude=43.5&longitude=-124.4&hourly=temperature_2m,precipitation_probability,windspeed_10m&timezone=auto");
+let data = await res.json();
+
+let nowHour = new Date().getHours();
+let pmIndex = Math.min(nowHour+6, data.hourly.temperature_2m.length-1);
+
+let amTemp = data.hourly.temperature_2m[nowHour];
+let pmTemp = data.hourly.temperature_2m[pmIndex];
+let amWind = data.hourly.windspeed_10m[nowHour];
+let pmWind = data.hourly.windspeed_10m[pmIndex];
+let rain = data.hourly.precipitation_probability[nowHour];
+
+window.weather={amTemp,pmTemp,amWind,pmWind,rain};
+
+document.getElementById("weatherBox").innerHTML = `
+<h3>Weather</h3>
+<p>AM ${amTemp}° | PM ${pmTemp}°</p>
+<p>Wind ${amWind}-${pmWind} mph</p>
+<p>Rain ${rain}%</p>
+`;
+}
+
+// DAILY
 const plans={
 1:"Travel + Preserve",
 2:"Old Mac + Pac Dunes",
@@ -195,136 +207,76 @@ const plans={
 5:"Shorty's + Travel"
 };
 
-// WEATHER (HOURLY)
-async function loadWeather(){
-let res = await fetch("https://api.open-meteo.com/v1/forecast?latitude=43.5&longitude=-124.4&hourly=temperature_2m,precipitation_probability,windspeed_10m&timezone=auto");
-let data = await res.json();
-
-let nowHour = new Date().getHours();
-
-// split AM / PM
-let amTemp = data.hourly.temperature_2m[nowHour];
-let pmTemp = data.hourly.temperature_2m[nowHour+6];
-
-let amWind = data.hourly.windspeed_10m[nowHour];
-let pmWind = data.hourly.windspeed_10m[nowHour+6];
-
-let rain = data.hourly.precipitation_probability[nowHour];
-
-window.weather={amTemp,pmTemp,amWind,pmWind,rain};
-
-document.getElementById("weatherBox").innerHTML = `
-<h3>Today Weather</h3>
-<p>AM: ${amTemp}° | Wind ${amWind}mph</p>
-<p>PM: ${pmTemp}° | Wind ${pmWind}mph</p>
-<p>Rain: ${rain}%</p>
-<p class="small">Wind > temp at Bandon</p>
-`;
-}
-
-// SMART GEAR ENGINE
 function buildGear(){
-
 let w=window.weather||{};
-let gear=[
-"Electrolyte per round",
-"Clif bar per round",
-"Protein shake after round"
-];
+let gear=["Electrolyte","Clif bar","Protein shake"];
 
-// WIND (biggest factor)
-if(w.amWind>15 || w.pmWind>15){
-gear.push("Beanie / wind layer");
-gear.push("Lip balm (wind burn is real)");
-}
+if(w.amWind>15||w.pmWind>15) gear.push("Beanie / wind layer");
+if(w.rain>25) gear.push("Rain gloves + extra socks");
+if(w.amTemp<55||w.pmTemp<55) gear.push("Base layer");
 
-// RAIN
-if(w.rain>25){
-gear.push("Rain gloves");
-gear.push("Extra socks");
-gear.push("Rotate towels");
-}
-
-// COLD
-if(w.amTemp<55 || w.pmTemp<55){
-gear.push("Base layer");
-}
-
-// ALWAYS
-gear.push("Rain gear (always carry)");
+gear.push("Rain gear always");
 
 return gear;
 }
 
 function loadDay(day){
-
 let gear=buildGear();
 
 document.getElementById("dayContent").innerHTML=`
 <div class="card">
 <h3>${plans[day]}</h3>
-
-<p class="highlight">Game Plan:</p>
 ${gear.map(g=>"<p>• "+g+"</p>").join("")}
-
 <a href="https://www.ghin.com" target="_blank">Post Score</a>
 </div>
 `;
 }
 
-// AUTO LOAD TODAY
-function autoLoad(){
-let today=new Date().getDate();
-if(today>=1 && today<=5){
-loadDay(today);
-}
-}
-
-loadWeather();
-autoLoad();
-</script>
-<script>
-
-// TIME HELPERS
-function minutesUntil(targetHour, targetMin){
-let now = new Date();
-let target = new Date();
-target.setHours(targetHour, targetMin, 0, 0);
-return Math.round((target - now) / 60000);
+// TRAVEL ENGINE
+function minutesUntil(h,m){
+let now=new Date();
+let t=new Date();
+t.setHours(h,m,0,0);
+return Math.round((t-now)/60000);
 }
 
-// UPDATE TRAVEL STATUS
 function updateTravel(){
 
 let leaveMins = minutesUntil(5,45);
 let flightMins = minutesUntil(6,30);
 
-let leaveText = leaveMins > 0 
-  ? `Leave in ${leaveMins} min`
-  : `You should have left ${Math.abs(leaveMins)} min ago`;
+// SMART LEAVE
+let drive=70, buffer=60;
+let boarding=new Date();
+boarding.setHours(6,30,0,0);
 
-let flightText = flightMins > 0 
-  ? `Boarding in ${flightMins} min`
-  : `Boarding started ${Math.abs(flightMins)} min ago`;
+let ideal=new Date(boarding-(drive+buffer)*60000);
+let mins=Math.round((ideal-new Date())/60000);
 
-document.getElementById("countdownLeave").innerText = leaveText;
-document.getElementById("countdownFlight").innerText = flightText;
+let msg = mins>0 ? `Leave in ${mins} min` : `🚨 Late by ${Math.abs(mins)} min`;
+document.getElementById("smartLeave").innerText = msg;
 
-// STATUS LOGIC
-let status = "Chill";
+// COUNTDOWNS
+document.getElementById("countdownLeave").innerText =
+leaveMins>0?`Leave in ${leaveMins} min`:`Late ${Math.abs(leaveMins)} min`;
 
-if(leaveMins < 60) status = "Get moving";
-if(leaveMins < 30) status = "Leave NOW";
-if(leaveMins < 0) status = "You’re late";
+document.getElementById("countdownFlight").innerText =
+flightMins>0?`Boarding in ${flightMins} min`:`Boarding started`;
 
-document.getElementById("travelStatus").innerText = status;
+// STATUS
+let status="Chill";
+if(leaveMins<60) status="Get moving";
+if(leaveMins<30) status="Leave NOW";
+if(leaveMins<0) status="Late";
 
+document.getElementById("travelStatus").innerText=status;
 }
 
-// RUN EVERY 30 SECONDS
-setInterval(updateTravel, 30000);
-updateTravel();
+setInterval(updateTravel,30000);
 
+loadWeather();
+updateTravel();
 </script>
+
 </body>
 </html>
