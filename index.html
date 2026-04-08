@@ -1987,14 +1987,59 @@
 
 <!-- ========================== PAGE: TODO ========================== -->
 <div id="page-todo" class="page-section">
-  <div class="card">
-    <div class="card-header">To-Do</div>
-    <div class="card-body">
-      <label><input type="checkbox"> Pack rain jacket</label><br>
-      <label><input type="checkbox"> Pack golf shoes</label><br>
-      <label><input type="checkbox"> Book parking</label>
+
+  <div class="grid-2">
+
+    <!-- PACK -->
+    <div class="card">
+      <div class="card-header">Pack</div>
+      <div class="card-body todo-list">
+
+        <label><input type="checkbox"> Rain pants</label>
+        <label><input type="checkbox"> Rain jacket</label>
+        <label><input type="checkbox"> Both golf shoes</label>
+        <label><input type="checkbox"> Rain gloves</label>
+        <label><input type="checkbox"> Normal golf gloves</label>
+        <label><input type="checkbox"> Wool base layer</label>
+        <label><input type="checkbox"> Beanie</label>
+        <label><input type="checkbox"> Shelta hat</label>
+        <label><input type="checkbox"> Golf towels</label>
+        <label><input type="checkbox"> Theragun</label>
+        <label><input type="checkbox"> Tylenol</label>
+        <label><input type="checkbox"> Snowboard socks</label>
+        <label><input type="checkbox"> Normal socks</label>
+        <label><input type="checkbox"> Sweatshirts</label>
+        <label><input type="checkbox"> Polos</label>
+        <label><input type="checkbox"> Q-zips</label>
+        <label><input type="checkbox"> Pants</label>
+        <label><input type="checkbox"> Bose headphones</label>
+        <label><input type="checkbox"> AirPods</label>
+        <label><input type="checkbox"> Laptop</label>
+        <label><input type="checkbox"> Chargers</label>
+        <label><input type="checkbox"> Toiletries</label>
+
+      </div>
     </div>
+
+    <!-- BUY -->
+    <div class="card">
+      <div class="card-header gold">Buy First</div>
+      <div class="card-body todo-list">
+
+        <label><input type="checkbox"> Water bottle</label>
+        <label><input type="checkbox"> Energy waffles</label>
+        <label><input type="checkbox"> Core Power protein drinks</label>
+        <label><input type="checkbox"> Hot hands</label>
+        <label><input type="checkbox"> Golf gloves (extra)</label>
+        <label><input type="checkbox"> Left Dash balls</label>
+        <label><input type="checkbox"> Hoodie?</label>
+        <label><input type="checkbox"> FJ socks?</label>
+
+      </div>
+    </div>
+
   </div>
+
 </div>
 <!-- ========================== PAGE: TRASH TALK ========================== -->
 <div id="page-trashtalk" class="page-section">
@@ -3129,6 +3174,20 @@ window.onload = function(){
 document.querySelectorAll('.todo-list input').forEach((box,i)=>{
   box.checked = localStorage.getItem('todo-'+i)==='true';
   box.onchange = ()=>localStorage.setItem('todo-'+i, box.checked);
+});
+</script>
+  <script>
+// SAVE CHECKBOXES
+document.querySelectorAll('.todo-list input').forEach((box, i) => {
+  const key = "todo-" + i;
+
+  // load saved state
+  box.checked = localStorage.getItem(key) === "true";
+
+  // save on change
+  box.addEventListener("change", () => {
+    localStorage.setItem(key, box.checked);
+  });
 });
 </script>
 </body>
