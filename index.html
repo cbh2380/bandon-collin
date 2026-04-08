@@ -679,6 +679,9 @@
     <button class="page-nav-btn" onclick="showPage('caddies')">Caddie Picks</button>
     <button class="page-nav-btn" onclick="showPage('payments')">Payments</button>
     <button class="page-nav-btn" onclick="showPage('packing')">Packing List</button>
+    <button class="page-nav-btn" onclick="showPage('travel')">Travel</button>
+<button class="page-nav-btn" onclick="showPage('daily')">Daily</button>
+<button class="page-nav-btn" onclick="showPage('todo')">To-Do</button>
     <button class="page-nav-btn" onclick="showPage('trashtalk')">Trash Talk <span style="background: var(--red); color: white; font-size: 0.6em; font-weight: 800; padding: 2px 5px; border-radius: 6px; letter-spacing: 0.5px; vertical-align: middle; margin-left: 4px;">NEW</span></button>
   </div>
 </nav>
@@ -1955,6 +1958,76 @@
 
 </div><!-- end page-trashtalk -->
 
+<div id="page-travel" class="page-section">
+
+  <div class="card">
+    <div class="card-header blue">Travel – May 1</div>
+    <div class="card-body">
+
+      <div class="stat-row">
+        <span class="stat-label">Parking</span>
+        <span class="stat-value">Fast Park Austin (88991683)</span>
+      </div>
+
+      <div class="stat-row">
+        <span class="stat-label">Flight</span>
+        <span class="stat-value">UA 2177 (7:10–9:12) AUS → SFO</span>
+      </div>
+
+      <div class="stat-row">
+        <span class="stat-label">Connection</span>
+        <span class="stat-value">UA 4689 (10:55–12:44) SFO → OTH</span>
+      </div>
+
+      <div style="margin-top:15px;">
+        <a href="https://www.united.com/en/us" target="_blank" class="venmo-btn">
+          Open United
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+<div id="page-daily" class="page-section">
+
+  <div class="card">
+    <div class="card-header">Daily Game Plan</div>
+    <div class="card-body">
+      <button onclick="loadDay(1)">May 1</button>
+      <button onclick="loadDay(2)">May 2</button>
+      <button onclick="loadDay(3)">May 3</button>
+      <button onclick="loadDay(4)">May 4</button>
+      <button onclick="loadDay(5)">May 5</button>
+    </div>
+  </div>
+
+  <div id="dayContent"></div>
+
+</div>
+
+  <div id="page-todo" class="page-section">
+
+  <div class="card">
+    <div class="card-header">Packing / To-Do</div>
+    <div class="card-body todo-list">
+
+      <label><input type="checkbox"> Rain gear</label>
+      <label><input type="checkbox"> Golf shoes</label>
+      <label><input type="checkbox"> Extra socks</label>
+      <label><input type="checkbox"> Gloves</label>
+      <label><input type="checkbox"> Headphones</label>
+      <label><input type="checkbox"> Chargers</label>
+      <label><input type="checkbox"> Toiletries</label>
+
+    </div>
+  </div>
+
+</div>
+  
+  
+</div>
+
+  
 <div style="text-align: center; padding: 20px; color: #999; font-size: 0.8em;">
   Bandon Dunes 2026 Dashboard &bull; Updated March 30, 2026
 </div>
@@ -2871,6 +2944,11 @@ function showPage(pageId) {
             <span style="font-size:0.72em;color:#aaa;">${formatTime(m.ts)}</span>
           </div>
           <div style="font-size:0.9em;margin-top:2px;line-height:1.5;">${escapeHtml(m.text)}</div>
+          .todo-list label {
+  display: flex;
+  gap: 10px;
+  padding: 8px 0;
+}
         </div>
       </div>`;
     }).join('');
@@ -2911,6 +2989,80 @@ function showPage(pageId) {
     if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendTrashTalk(); }
   });
 })();
+</script>
+  <script>
+const days = {
+  "2026-05-01": 1,
+  "2026-05-02": 2,
+  "2026-05-03": 3,
+  "2026-05-04": 4,
+  "2026-05-05": 5
+};
+
+function getTodayTripDay(){
+  const today = new Date().toISOString().split('T')[0];
+  return days[today];
+}
+
+function loadDay(day){
+
+  const plans = {
+    1: { title: "Travel + Preserve", courses: "Preserve (4:15)", dinner: "Gallery 7:30" },
+    2: { title: "36 Holes", courses: "Old Mac + Pac Dunes", dinner: "Pacific Grill" },
+    3: { title: "36 Holes", courses: "Sheep Ranch + Bandon", dinner: "Ghost Tree" },
+    4: { title: "36 Holes", courses: "Trails + Pac Dunes", dinner: "McKee’s" },
+    5: { title: "Shorty's + Travel", courses: "Shorty's 7am", dinner: "Flights" }
+  };
+
+  const plan = plans[day];
+
+  document.getElementById("dayContent").innerHTML = `
+    <div class="card">
+      <div class="card-header">${plan.title}</div>
+      <div class="card-body">
+
+        <div class="stat-row">
+          <span class="stat-label">Courses</span>
+          <span class="stat-value">${plan.courses}</span>
+        </div>
+
+        <div class="stat-row">
+          <span class="stat-label">Dinner</span>
+          <span class="stat-value">${plan.dinner}</span>
+        </div>
+
+        <div style="margin-top:15px;">
+          <strong>Bring:</strong><br>
+          • Electrolyte<br>
+          • Snack<br>
+          • Rain gear<br>
+          • Extra socks
+        </div>
+
+        <div style="margin-top:15px;">
+          <a href="https://www.ghin.com" target="_blank" class="venmo-btn">
+            Post Score
+          </a>
+        </div>
+
+      </div>
+    </div>
+  `;
+}
+
+// AUTO LOAD TODAY
+window.onload = function(){
+  const today = getTodayTripDay();
+  if(today){
+    loadDay(today);
+  }
+};
+
+// SAVE CHECKLIST
+document.querySelectorAll('.todo-list input').forEach((box,i)=>{
+  box.checked = localStorage.getItem('todo-'+i)==='true';
+  box.onchange = ()=>localStorage.setItem('todo-'+i, box.checked);
+});
 </script>
 </body>
 </html>
