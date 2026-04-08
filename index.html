@@ -5,8 +5,8 @@
 <title>Bandon Command Center</title>
 
 <style>
-body {margin:0;font-family:system-ui;background:#f5f0e1;}
-.header{background:#1e3d1a;color:white;padding:20px;text-align:center;}
+body{margin:0;font-family:system-ui;background:#f5f0e1;}
+.header{background:#1e3d1a;color:white;padding:18px;text-align:center;}
 .nav{display:flex;background:white;border-bottom:2px solid #c9a84c;}
 .nav button{flex:1;padding:12px;border:none;background:none;font-weight:700;}
 .nav button.active{border-bottom:3px solid #c9a84c;}
@@ -14,7 +14,8 @@ body {margin:0;font-family:system-ui;background:#f5f0e1;}
 .page.active{display:block;}
 .card{background:white;padding:15px;border-radius:10px;margin-bottom:15px;}
 .todo label{display:block;padding:6px 0;}
-.small{color:#666;font-size:13px;}
+.small{color:#666;font-size:12px;}
+.highlight{font-weight:700;color:#1e3d1a;}
 </style>
 
 </head>
@@ -36,7 +37,7 @@ body {margin:0;font-family:system-ui;background:#f5f0e1;}
 <div id="home" class="page active">
 <div class="card">
 <h3>Mission</h3>
-<p>36 holes a day. Walk everything. Survive.</p>
+<p>36 holes a day. Walk everything. Adapt or die.</p>
 </div>
 </div>
 
@@ -71,7 +72,7 @@ body {margin:0;font-family:system-ui;background:#f5f0e1;}
 
 </div>
 
-<!-- TODO -->
+<!-- PACKING -->
 <div id="todo" class="page">
 
 <div class="card">
@@ -79,13 +80,15 @@ body {margin:0;font-family:system-ui;background:#f5f0e1;}
 <div class="todo">
 <label><input type="checkbox"> Rain jacket</label>
 <label><input type="checkbox"> Rain pants</label>
-<label><input type="checkbox"> Both shoes</label>
+<label><input type="checkbox"> Both golf shoes</label>
 <label><input type="checkbox"> Rain gloves</label>
+<label><input type="checkbox"> Normal gloves</label>
 <label><input type="checkbox"> Base layer</label>
 <label><input type="checkbox"> Beanie</label>
 <label><input type="checkbox"> Socks</label>
 <label><input type="checkbox"> Towels</label>
 <label><input type="checkbox"> Theragun</label>
+<label><input type="checkbox"> Tylenol</label>
 <label><input type="checkbox"> Headphones</label>
 </div>
 </div>
@@ -118,92 +121,102 @@ box.checked = localStorage.getItem('cb'+i)==='true';
 box.onchange = ()=>localStorage.setItem('cb'+i, box.checked);
 });
 
-// DAILY DATA
-const plans = {
-1:{courses:"Travel + Preserve"},
-2:{courses:"Old Mac + Pac Dunes"},
-3:{courses:"Sheep Ranch + Bandon"},
-4:{courses:"Trails + Pac Dunes"},
-5:{courses:"Shorty's + Travel"}
+// DAILY PLAN
+const plans={
+1:"Travel + Preserve",
+2:"Old Mac + Pac Dunes",
+3:"Sheep Ranch + Bandon",
+4:"Trails + Pac Dunes",
+5:"Shorty's + Travel"
 };
 
-// WEATHER (REAL API)
+// WEATHER (HOURLY)
 async function loadWeather(){
-try{
-let res = await fetch("https://api.open-meteo.com/v1/forecast?latitude=43.5&longitude=-124.4&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,windspeed_10m_max&timezone=auto");
+let res = await fetch("https://api.open-meteo.com/v1/forecast?latitude=43.5&longitude=-124.4&hourly=temperature_2m,precipitation_probability,windspeed_10m&timezone=auto");
 let data = await res.json();
 
-let today = 0;
+let nowHour = new Date().getHours();
 
-let temp = data.daily.temperature_2m_max[today];
-let wind = data.daily.windspeed_10m_max[today];
-let rain = data.daily.precipitation_probability_max[today];
+// split AM / PM
+let amTemp = data.hourly.temperature_2m[nowHour];
+let pmTemp = data.hourly.temperature_2m[nowHour+6];
+
+let amWind = data.hourly.windspeed_10m[nowHour];
+let pmWind = data.hourly.windspeed_10m[nowHour+6];
+
+let rain = data.hourly.precipitation_probability[nowHour];
+
+window.weather={amTemp,pmTemp,amWind,pmWind,rain};
 
 document.getElementById("weatherBox").innerHTML = `
-<h3>Weather</h3>
-<p>${temp}°F | Wind ${wind} mph | Rain ${rain}%</p>
-<p class="small">Bandon = wind matters more than temp</p>
+<h3>Today Weather</h3>
+<p>AM: ${amTemp}° | Wind ${amWind}mph</p>
+<p>PM: ${pmTemp}° | Wind ${pmWind}mph</p>
+<p>Rain: ${rain}%</p>
+<p class="small">Wind > temp at Bandon</p>
 `;
-
-window.currentWeather = {temp, wind, rain};
-
-}catch{
-document.getElementById("weatherBox").innerHTML = "Weather unavailable";
-}
 }
 
-function getGear(){
+// SMART GEAR ENGINE
+function buildGear(){
 
-let gear = [
+let w=window.weather||{};
+let gear=[
 "Electrolyte per round",
 "Clif bar per round",
-"Protein after"
+"Protein shake after round"
 ];
 
-let w = window.currentWeather || {};
-
-if(w.wind > 15){
+// WIND (biggest factor)
+if(w.amWind>15 || w.pmWind>15){
 gear.push("Beanie / wind layer");
+gear.push("Lip balm (wind burn is real)");
 }
 
-if(w.rain > 30){
+// RAIN
+if(w.rain>25){
 gear.push("Rain gloves");
 gear.push("Extra socks");
+gear.push("Rotate towels");
 }
 
-if(w.temp < 55){
+// COLD
+if(w.amTemp<55 || w.pmTemp<55){
 gear.push("Base layer");
 }
 
-gear.push("Always: rain gear");
+// ALWAYS
+gear.push("Rain gear (always carry)");
 
 return gear;
 }
 
 function loadDay(day){
 
-let gear = getGear();
+let gear=buildGear();
 
-document.getElementById("dayContent").innerHTML = `
+document.getElementById("dayContent").innerHTML=`
 <div class="card">
-<h3>${plans[day].courses}</h3>
-<p><strong>Game Plan:</strong></p>
+<h3>${plans[day]}</h3>
+
+<p class="highlight">Game Plan:</p>
 ${gear.map(g=>"<p>• "+g+"</p>").join("")}
+
 <a href="https://www.ghin.com" target="_blank">Post Score</a>
 </div>
 `;
 }
 
 // AUTO LOAD TODAY
-function autoDay(){
-let today = new Date().getDate();
+function autoLoad(){
+let today=new Date().getDate();
 if(today>=1 && today<=5){
 loadDay(today);
 }
 }
 
 loadWeather();
-autoDay();
+autoLoad();
 </script>
 
 </body>
